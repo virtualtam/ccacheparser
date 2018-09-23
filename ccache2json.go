@@ -52,31 +52,90 @@ var rules = map[string]*regexp.Regexp{
 }
 
 func (s *Statistics) Parse(text string) {
-	s.CacheDirectory = rules["cacheDirectory"].FindStringSubmatch(text)[1]
-	s.PrimaryConfig = rules["primaryConfig"].FindStringSubmatch(text)[1]
-	s.SecondaryConfigReadonly = rules["secondaryConfigReadonly"].FindStringSubmatch(text)[2]
+	matches := rules["cacheDirectory"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CacheDirectory = matches[1]
+	}
+
+	matches = rules["primaryConfig"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.PrimaryConfig = matches[1]
+	}
+
+	matches = rules["secondaryConfigReadonly"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.SecondaryConfigReadonly = matches[1]
+	} else if len(matches) == 3 {
+		s.SecondaryConfigReadonly = matches[2]
+	}
 
 	// now's the time
 	s.StatsTime = time.Now()
 
 	// assume stats originate from the local host
 	statsZeroTime := rules["statsZeroTime"].FindStringSubmatch(text)[1]
+
 	s.StatsZeroTime, _ = time.ParseInLocation("Mon Jan 2 15:04:05 2006", statsZeroTime, s.StatsTime.Location())
 
-	s.CacheHitDirect, _ = strconv.Atoi(rules["cacheHitDirect"].FindStringSubmatch(text)[1])
+	matches = rules["cacheHitDirect"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CacheHitDirect, _ = strconv.Atoi(matches[1])
+	}
 
-	s.CacheHitPreprocessed, _ = strconv.Atoi(rules["cacheHitPreprocessed"].FindStringSubmatch(text)[1])
-	s.CacheMiss, _ = strconv.Atoi(rules["cacheMiss"].FindStringSubmatch(text)[1])
-	s.CacheHitRate, _ = strconv.ParseFloat(rules["cacheHitRate"].FindStringSubmatch(text)[1], 64)
-	s.CalledForLink, _ = strconv.Atoi(rules["calledForLink"].FindStringSubmatch(text)[1])
-	s.CalledForPreprocessing, _ = strconv.Atoi(rules["calledForPreprocessing"].FindStringSubmatch(text)[1])
-	s.UnsupportedCodeDirective, _ = strconv.Atoi(rules["unsupportedCodeDirective"].FindStringSubmatch(text)[1])
-	s.NoInputFile, _ = strconv.Atoi(rules["noInputFile"].FindStringSubmatch(text)[1])
-	s.CleanupsPerformed, _ = strconv.Atoi(rules["cleanupsPerformed"].FindStringSubmatch(text)[1])
-	s.FilesInCache, _ = strconv.Atoi(rules["filesInCache"].FindStringSubmatch(text)[1])
+	matches = rules["cacheHitPreprocessed"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CacheHitPreprocessed, _ = strconv.Atoi(matches[1])
+	}
 
-	s.CacheSize = rules["cacheSize"].FindStringSubmatch(text)[1]
-	s.MaxCacheSize = rules["maxCacheSize"].FindStringSubmatch(text)[1]
+	matches = rules["cacheMiss"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CacheMiss, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["cacheHitRate"].FindStringSubmatch(text)
+	if len(matches) == 3 {
+		s.CacheHitRate, _ = strconv.ParseFloat(matches[1], 64)
+	}
+
+	matches = rules["calledForLink"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CalledForLink, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["calledForPreprocessing"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CalledForPreprocessing, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["unsupportedCodeDirective"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.UnsupportedCodeDirective, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["noInputFile"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.NoInputFile, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["cleanupsPerformed"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CleanupsPerformed, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["filesInCache"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.FilesInCache, _ = strconv.Atoi(matches[1])
+	}
+
+	matches = rules["cacheSize"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.CacheSize = matches[1]
+	}
+
+	matches = rules["maxCacheSize"].FindStringSubmatch(text)
+	if len(matches) == 2 {
+		s.MaxCacheSize = matches[1]
+	}
 }
 
 func main() {
