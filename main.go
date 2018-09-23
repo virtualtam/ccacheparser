@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
+	"os"
 	"regexp"
 	"strconv"
 	"time"
@@ -77,26 +79,23 @@ func (s *Statistics) Parse(text string) {
 	s.MaxCacheSize = rules["maxCacheSize"].FindStringSubmatch(text)[1]
 }
 
-const text = `
-cache directory                     /home/virtualtam/.ccache
-primary config                      /home/virtualtam/.ccache/ccache.conf
-secondary config      (readonly)    /etc/ccache.conf
-stats zero time                     Sun Sep 23 01:18:52 2018
-cache hit (direct)                    73
-cache hit (preprocessed)               4
-cache miss                           207
-cache hit rate                     27.11 %
-called for link                       28
-called for preprocessing             170
-unsupported code directive             4
-no input file                         58
-cleanups performed                     0
-files in cache                       639
-cache size                          12.1 MB
-max cache size                      15.0 GB
-`
-
 func main() {
+	stat, err := os.Stdin.Stat()
+	if err != nil {
+		panic(err)
+	}
+
+	if stat.Mode()&os.ModeNamedPipe == 0 {
+		// TODO add flags, read from stdin / file(s)
+		// TODO add help
+		panic("No data piped to stdin")
+	}
+
+	var text string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		text += scanner.Text() + "\n"
+	}
 	stats := Statistics{}
 	stats.Parse(text)
 	statsJson, _ := json.Marshal(stats)
