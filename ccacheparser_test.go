@@ -1,4 +1,4 @@
-package main
+package ccacheparser
 
 import (
 	"io/ioutil"

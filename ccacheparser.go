@@ -1,10 +1,6 @@
-package main
+package ccacheparser
 
 import (
-	"bufio"
-	"encoding/json"
-	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -141,27 +137,4 @@ func (s *Statistics) Parse(text string) {
 		s.MaxCacheSize = matches[1]
 		s.MaxCacheSizeBytes, _ = units.ParseMetricBytes(strings.Replace(s.MaxCacheSize, " ", "", -1))
 	}
-}
-
-func main() {
-	stat, err := os.Stdin.Stat()
-	if err != nil {
-		panic(err)
-	}
-
-	if stat.Mode()&os.ModeNamedPipe == 0 {
-		// TODO add flags, read from stdin / file(s)
-		// TODO add help
-		panic("No data piped to stdin")
-	}
-
-	var text string
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		text += scanner.Text() + "\n"
-	}
-	stats := Statistics{}
-	stats.Parse(text)
-	statsJson, _ := json.Marshal(stats)
-	fmt.Println(string(statsJson))
 }
