@@ -16,7 +16,27 @@ Usage
 
 ::
    
-   $ ccache -s | ccacheparser
+   $ ccache -s | ccacheparser | jq
+
+   {
+     "cache_directory": "/home/virtualtam/.ccache",
+     "primary_config": "/home/virtualtam/.ccache/ccache.conf",
+     "secondary_config_readonly": "/etc/ccache.conf",
+     "stats_time": "2018-09-24T19:59:10.800963007+02:00",
+     "stats_zero_time": "2018-09-23T01:18:52+02:00",
+     "cache_hit_direct": 124,
+     "cache_hit_preprocessed": 8,
+     "cache_miss": 297,
+     "cache_hit_rate": 30.77,
+     "called_for_link": 39,
+     "called_for_preprocessing": 263,
+     "unsupported_code_directive": 5,
+     "no_input_file": 83,
+     "cleanups_performed": 0,
+     "files_in_cache": 926,
+     "cache_size": "17.5 MB",
+     "max_cache_size": "15.0 GB",
+   }
 
 
 .. _ccache: https://github.com/ccache/ccache
