@@ -9,6 +9,7 @@ import (
 	"github.com/alecthomas/units"
 )
 
+// Statistics represents information about ccache configuration and usage.
 type Statistics struct {
 	CacheDirectory           string            `json:"cache_directory"`
 	PrimaryConfig            string            `json:"primary_config"`
@@ -50,6 +51,7 @@ var rules = map[string]*regexp.Regexp{
 	"maxCacheSize":             regexp.MustCompile(`max cache size\s+(.+)`),
 }
 
+// Parse reads ccache statistics as formatted by the `ccache -s` command.
 func (s *Statistics) Parse(text string) {
 	matches := rules["cacheDirectory"].FindStringSubmatch(text)
 	if len(matches) == 2 {
