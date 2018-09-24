@@ -1,4 +1,4 @@
-module github.com/virtualtam/ccache2json
+module github.com/virtualtam/ccacheparser
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
