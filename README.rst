@@ -22,7 +22,7 @@ Usage
      "cache_directory": "/home/virtualtam/.ccache",
      "primary_config": "/home/virtualtam/.ccache/ccache.conf",
      "secondary_config_readonly": "/etc/ccache.conf",
-     "stats_time": "2018-09-24T19:59:10.800963007+02:00",
+     "stats_time": "2018-09-24T21:19:07.997866938+02:00",
      "stats_zero_time": "2018-09-23T01:18:52+02:00",
      "cache_hit_direct": 124,
      "cache_hit_preprocessed": 8,
@@ -35,7 +35,9 @@ Usage
      "cleanups_performed": 0,
      "files_in_cache": 926,
      "cache_size": "17.5 MB",
+     "cache_size_bytes": 17500000,
      "max_cache_size": "15.0 GB",
+     "max_cache_size_bytes": 15000000000
    }
 
 

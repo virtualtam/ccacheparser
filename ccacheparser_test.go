@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/alecthomas/units"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -30,9 +31,9 @@ func TestParseEmptyCacheStats(t *testing.T) {
 	assert.Equal(t, 0, s.CleanupsPerformed)
 	assert.Equal(t, 0, s.FilesInCache)
 	assert.Equal(t, "0.0 kB", s.CacheSize)
-	assert.Equal(t, 0, s.CacheSizeBytes)
+	assert.Equal(t, units.MetricBytes(0), s.CacheSizeBytes)
 	assert.Equal(t, "15.0 GB", s.MaxCacheSize)
-	assert.Equal(t, 0, s.MaxCacheSizeBytes)
+	assert.Equal(t, units.MetricBytes(15000000000), s.MaxCacheSizeBytes)
 }
 
 func TestParseFirstBuildStats(t *testing.T) {
@@ -58,9 +59,9 @@ func TestParseFirstBuildStats(t *testing.T) {
 	assert.Equal(t, 0, s.CleanupsPerformed)
 	assert.Equal(t, 361, s.FilesInCache)
 	assert.Equal(t, "6.4 MB", s.CacheSize)
-	assert.Equal(t, 0, s.CacheSizeBytes)
+	assert.Equal(t, units.MetricBytes(6400000), s.CacheSizeBytes)
 	assert.Equal(t, "15.0 GB", s.MaxCacheSize)
-	assert.Equal(t, 0, s.MaxCacheSizeBytes)
+	assert.Equal(t, units.MetricBytes(15000000000), s.MaxCacheSizeBytes)
 }
 
 func TestParseSecondBuildStats(t *testing.T) {
@@ -86,7 +87,7 @@ func TestParseSecondBuildStats(t *testing.T) {
 	assert.Equal(t, 0, s.CleanupsPerformed)
 	assert.Equal(t, 639, s.FilesInCache)
 	assert.Equal(t, "12.1 MB", s.CacheSize)
-	assert.Equal(t, 0, s.CacheSizeBytes)
-	assert.Equal(t, "17.0 GB", s.MaxCacheSize)
-	assert.Equal(t, 0, s.MaxCacheSizeBytes)
+	assert.Equal(t, units.MetricBytes(12100000), s.CacheSizeBytes)
+	assert.Equal(t, "15.0 GB", s.MaxCacheSize)
+	assert.Equal(t, units.MetricBytes(15000000000), s.MaxCacheSizeBytes)
 }
