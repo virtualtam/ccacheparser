@@ -1,5 +1,5 @@
-ccache2json
-===========
+ccacheparser
+============
 
 A simple utility to convert `ccache`_ statistics to a JSON object.
 
