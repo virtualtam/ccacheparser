@@ -3,6 +3,14 @@ ccacheparser
 
 A simple utility to convert `ccache`_ statistics to a JSON object.
 
+====== ======
+Branch Status
+====== ======
+master .. image:: https://travis-ci.org/virtualtam/ccacheparser.svg?branch=master
+          :target: https://travis-ci.org/virtualtam/ccacheparser
+          :alt: Travis build status
+====== ======
+
 Installation
 ------------
 
@@ -15,7 +23,7 @@ Usage
 -----
 
 ::
-   
+
    $ ccache -s | ccacheparser | jq
 
    {
