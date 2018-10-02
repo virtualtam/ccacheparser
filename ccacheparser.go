@@ -20,6 +20,7 @@ type Statistics struct {
 	CacheHitPreprocessed     int               `json:"cache_hit_preprocessed"`
 	CacheMiss                int               `json:"cache_miss"`
 	CacheHitRate             float64           `json:"cache_hit_rate"`
+	CacheHitRatio            float64           `json:"cache_hit_ratio"`
 	CalledForLink            int               `json:"called_for_link"`
 	CalledForPreprocessing   int               `json:"called_for_preprocessing"`
 	UnsupportedCodeDirective int               `json:"unsupported_code_directive"`
@@ -96,6 +97,7 @@ func (s *Statistics) Parse(text string) {
 	matches = rules["cacheHitRate"].FindStringSubmatch(text)
 	if len(matches) == 3 {
 		s.CacheHitRate, _ = strconv.ParseFloat(matches[1], 64)
+		s.CacheHitRatio = s.CacheHitRate / 100
 	}
 
 	matches = rules["calledForLink"].FindStringSubmatch(text)
