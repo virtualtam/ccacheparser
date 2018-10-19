@@ -37,7 +37,7 @@ var rules = map[string]*regexp.Regexp{
 	"cacheDirectory":           regexp.MustCompile(`cache directory\s+(.+)`),
 	"primaryConfig":            regexp.MustCompile(`primary config\s+(.+)`),
 	"secondaryConfigReadonly":  regexp.MustCompile(`secondary config\s+(\(readonly\)\s+)?(.+)`),
-	"statsZeroTime":            regexp.MustCompile(`stats zero time\s+(.*)`),
+	"statsZeroTime":            regexp.MustCompile(`stats zero( time|ed)\s+(.*)`),
 	"cacheHitDirect":           regexp.MustCompile(`cache hit \(direct\)\s+(\d+)`),
 	"cacheHitPreprocessed":     regexp.MustCompile(`cache hit \(preprocessed\)\s+(\d+)`),
 	"cacheMiss":                regexp.MustCompile(`cache miss\s+(\d+)`),
@@ -75,9 +75,11 @@ func (s *Statistics) Parse(text string) {
 	s.StatsTime = time.Now()
 
 	// assume stats originate from the local host
-	statsZeroTime := rules["statsZeroTime"].FindStringSubmatch(text)[1]
-
-	s.StatsZeroTime, _ = time.ParseInLocation("Mon Jan 2 15:04:05 2006", statsZeroTime, s.StatsTime.Location())
+	matches = rules["statsZeroTime"].FindStringSubmatch(text)
+	if len(matches) == 3 {
+		statsZeroTime := rules["statsZeroTime"].FindStringSubmatch(text)[2]
+		s.StatsZeroTime, _ = time.ParseInLocation("Mon Jan 2 15:04:05 2006", statsZeroTime, s.StatsTime.Location())
+	}
 
 	matches = rules["cacheHitDirect"].FindStringSubmatch(text)
 	if len(matches) == 2 {

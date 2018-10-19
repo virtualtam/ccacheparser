@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParseEmptyCacheStats(t *testing.T) {
+func TestParseEmptyCacheStats343(t *testing.T) {
 	input, err := ioutil.ReadFile("tests/3.4.3/empty.txt")
 	if err != nil {
 		panic(err)
@@ -37,7 +37,7 @@ func TestParseEmptyCacheStats(t *testing.T) {
 	assert.Equal(t, units.MetricBytes(15000000000), s.MaxCacheSizeBytes)
 }
 
-func TestParseFirstBuildStats(t *testing.T) {
+func TestParseFirstBuildStats343(t *testing.T) {
 	input, err := ioutil.ReadFile("tests/3.4.3/first.txt")
 	if err != nil {
 		panic(err)
@@ -66,7 +66,7 @@ func TestParseFirstBuildStats(t *testing.T) {
 	assert.Equal(t, units.MetricBytes(15000000000), s.MaxCacheSizeBytes)
 }
 
-func TestParseSecondBuildStats(t *testing.T) {
+func TestParseSecondBuildStats343(t *testing.T) {
 	input, err := ioutil.ReadFile("tests/3.4.3/second.txt")
 	if err != nil {
 		panic(err)
