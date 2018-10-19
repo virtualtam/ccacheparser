@@ -11,12 +11,19 @@ master .. image:: https://travis-ci.org/virtualtam/ccacheparser.svg?branch=maste
           :alt: Travis build status
 ====== ======
 
-Installation
-------------
+Building
+--------
 
 ::
 
-   $ go get -u github.com/virtualtam/ccacheparser
+   # get the sources
+   $ git clone https://github.com/virtualtam/ccacheparser.git
+
+   # go >= 1.11: enable module support
+   $ export GO111MODULE=on
+
+   # build ccacheparser
+   $ make build
 
 
 Usage
